@@ -1,0 +1,11 @@
+Model Information:
+* title:	Perseverance Rover - NASA Mars 2020 Mission
+* source:	https://sketchfab.com/3d-models/perseverance-rover-nasa-mars-2020-mission-5f59240fb0bb4d19aadf1a4cda503add
+* author:	zaddazed (https://sketchfab.com/zaddazed)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Perseverance Rover - NASA Mars 2020 Mission" (https://sketchfab.com/3d-models/perseverance-rover-nasa-mars-2020-mission-5f59240fb0bb4d19aadf1a4cda503add) by zaddazed (https://sketchfab.com/zaddazed) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

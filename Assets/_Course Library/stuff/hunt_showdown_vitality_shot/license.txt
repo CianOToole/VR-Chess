@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hunt Showdown Vitality Shot
+* source:	https://sketchfab.com/3d-models/hunt-showdown-vitality-shot-f9e8493a061f442b84c3ace9bde91223
+* author:	Adib_Ali (https://sketchfab.com/Adib_Ali)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hunt Showdown Vitality Shot" (https://sketchfab.com/3d-models/hunt-showdown-vitality-shot-f9e8493a061f442b84c3ace9bde91223) by Adib_Ali (https://sketchfab.com/Adib_Ali) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

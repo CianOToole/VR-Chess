@@ -1,0 +1,29 @@
+Order_ID,Item_Name,Item_No,Price,Rating,Producer
+1000,Ozark,S12_1942,29.99,3,Netflix
+1000,Lupin,S18_1421,26.99,5,Stream
+1015,Sex Education,S21_4320,18.99,4,Netflix
+1015,Atypical,M15_8474,26.99,5,Sony
+1001,Lupin,S18_1421,26.99,4,Gaumont
+1001,Sex Education,S21_4320,18.99,3,Netflix
+1002,Queen of the South,S23_2421,26.99,3,Netflix
+1002,Cobra Kai,A11_3411,26.99,3,Sony
+1003,Atypical,M15_8474,26.99,4,Sony
+1003,Daredevil,S20_1421,26.99,5,Netflix
+1004,Daredevil,S20_1421,26.99,3,Netflix
+1004,Better Call Saul,S22_4421,26.99,4,Universal
+1004,Lupin,S18_1421,26.99,4,Gaumont
+1005,Cobra Kai,A11_3411,26.99,5,Sony
+1005,Queen of the South,S23_2421,26.99,3,Netflix
+1006,Ozark,S12_1942,29.99,4,Netflix
+1006,Daredevil,S20_1421,26.99,4,Netflix
+1007,Lupin,S18_1421,26.99,5,Gaumont
+1007,Sex Education,S21_4320,18.99,5,Netflix
+1008,Better Call Saul,S22_4421,26.99,3,Universal
+1008,Ozark,S12_1942,29.99,4,Netflix
+1009,Queen of the South,S23_2421,26.99,3,Netflix
+1009,Cobra Kai,A11_3411,26.99,4,Sony
+1010,Atypical,M15_8474,26.99,3,Sony
+1010,Daredevil,S20_1421,26.99,3,Netflix
+1011,Better Call Saul,S22_4421,26.99,4,Universal
+1011,Ozark,S12_1942,29.99,3,Netflix
+1011,Cobra Kai,A11_3411,26.99,3,Sony
