@@ -1,15 +1,17 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class ChessBoard : MonoBehaviour
 {
 
     [Header("Art stuff")]
     [SerializeField] private Material tileMaterial;
-    [SerializeField] private float tileSize = 1.0f;
-    [SerializeField] private float yOffset = 1.0f;
+    [SerializeField] private float tileSize = 1f;
+    [SerializeField] private float yOffset = 1f;
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
+    [SerializeField] private GameObject leftHand;
     //LOGIC
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
@@ -29,8 +31,11 @@ public class ChessBoard : MonoBehaviour
         if (!currentCamera) 
         {
             currentCamera = Camera.main;
+          
             return;
         }
+       var test = leftHand.GetComponent<SphereCollider>();
+       
         /*
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
@@ -100,7 +105,8 @@ public class ChessBoard : MonoBehaviour
         mesh.RecalculateNormals();
 
         tileObject.layer = LayerMask.NameToLayer("Tile");
-        tileObject.AddComponent<BoxCollider>();
+        tileObject.AddComponent<BoxCollider>().size = new Vector3(0.01f, 0.01f, 0.01f); ;
+        
 
         return tileObject;
     }
