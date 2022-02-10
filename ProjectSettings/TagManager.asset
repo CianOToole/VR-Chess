@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Box
   - Trail
+  - Gimp
   layers:
   - Default
   - TransparentFX

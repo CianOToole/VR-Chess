@@ -35,7 +35,13 @@ public class ChessBoard : MonoBehaviour
             return;
         }
        var test = leftHand.GetComponent<SphereCollider>();
-       
+        var test = leftHand.GetComponent<XRDirectInteractor>();
+        
+        findTileHit(leftHand);
+        //Debug.Log("Trigger On : " + leftHand.name);
+
+
+
         /*
         RaycastHit info;
         Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
@@ -85,7 +91,7 @@ public class ChessBoard : MonoBehaviour
     }
     private GameObject GenerateSingleTile(float tileSize, int x, int y)
     {
-        GameObject tileObject = new GameObject(string.Format("X:{0}, Y:{1}", x, y));
+        GameObject tileObject = new GameObject(string.Format("Gimp"));
         tileObject.transform.parent = transform;
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
@@ -104,9 +110,11 @@ public class ChessBoard : MonoBehaviour
 
         mesh.RecalculateNormals();
 
-        tileObject.layer = LayerMask.NameToLayer("Tile");
-        tileObject.AddComponent<BoxCollider>().size = new Vector3(0.01f, 0.01f, 0.01f); ;
         
+        tileObject.layer = LayerMask.NameToLayer("Tile");
+        tileObject.AddComponent<BoxCollider>().size = new Vector3(0.01f, 1f, 0.01f); ;
+        tileObject.GetComponent<BoxCollider>().isTrigger = false;
+        tileObject.tag = "Gimp";
 
         return tileObject;
     }
@@ -123,4 +131,43 @@ public class ChessBoard : MonoBehaviour
             
         
     }
+    
+    private void findTileHit(GameObject hand)
+    {
+        OnTriggerEnter(hand.GetComponent<Collider>());
+    }
+
+   
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "Gimp")
+        {
+            Debug.Log("Collision with line");
+            Vector3 linePos = other.transform.position;
+            float linePosX = other.transform.position.x;
+
+           
+
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other != null)
+        {
+           // Debug.Log(other.name);
+        }
+        if (other.gameObject.name == "Gimp")
+        {
+            Debug.Log("Collision with line");
+            Vector3 linePos = other.transform.position;
+            float linePosX = other.transform.position.x;
+
+           
+
+        }
+    }
+
+   
 }
