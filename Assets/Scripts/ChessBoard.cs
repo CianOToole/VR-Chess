@@ -34,10 +34,10 @@ public class ChessBoard : MonoBehaviour
           
             return;
         }
-       var test = leftHand.GetComponent<SphereCollider>();
-        var test = leftHand.GetComponent<XRDirectInteractor>();
+       //var test = leftHand.GetComponent<SphereCollider>();
+       // leftHand.GetComponent<XRDirectInteractor>();
         
-        findTileHit(leftHand);
+        //findTileHit(tiles[0,0]);
         //Debug.Log("Trigger On : " + leftHand.name);
 
 
@@ -113,8 +113,10 @@ public class ChessBoard : MonoBehaviour
         
         tileObject.layer = LayerMask.NameToLayer("Tile");
         tileObject.AddComponent<BoxCollider>().size = new Vector3(0.01f, 1f, 0.01f); ;
-        tileObject.GetComponent<BoxCollider>().isTrigger = false;
+        tileObject.GetComponent<BoxCollider>().isTrigger = true;
         tileObject.tag = "Gimp";
+        tileObject.AddComponent<colTest>();
+        
 
         return tileObject;
     }
@@ -132,42 +134,16 @@ public class ChessBoard : MonoBehaviour
         
     }
     
-    private void findTileHit(GameObject hand)
+    public static void findTileHit()
     {
-        OnTriggerEnter(hand.GetComponent<Collider>());
+        Debug.Log("pog2");
     }
 
    
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.name == "Gimp")
-        {
-            Debug.Log("Collision with line");
-            Vector3 linePos = other.transform.position;
-            float linePosX = other.transform.position.x;
+  
 
-           
-
-        }
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other != null)
-        {
-           // Debug.Log(other.name);
-        }
-        if (other.gameObject.name == "Gimp")
-        {
-            Debug.Log("Collision with line");
-            Vector3 linePos = other.transform.position;
-            float linePosX = other.transform.position.x;
-
-           
-
-        }
-    }
+   
 
    
 }
