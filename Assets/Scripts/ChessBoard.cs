@@ -12,6 +12,10 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private float yOffset = 1f;
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
     [SerializeField] private GameObject leftHand;
+
+    [Header("Prefabs & Materials")]
+    [SerializeField] private GameObject[] prefabs;
+    [SerializeField] private Material[] teamMaterials;
     //LOGIC
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
@@ -24,6 +28,7 @@ public class ChessBoard : MonoBehaviour
     private void Awake()
     {
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
+        SpawnSinglePiece(ChessPieceType.King, 0);
     }
 
     private void Update()
@@ -91,7 +96,7 @@ public class ChessBoard : MonoBehaviour
     }
     private GameObject GenerateSingleTile(float tileSize, int x, int y)
     {
-        GameObject tileObject = new GameObject(string.Format("Gimp"));
+        GameObject tileObject = new GameObject(string.Format("X{0} Y{1}", x,y));
         tileObject.transform.parent = transform;
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
@@ -114,11 +119,29 @@ public class ChessBoard : MonoBehaviour
         tileObject.layer = LayerMask.NameToLayer("Tile");
         tileObject.AddComponent<BoxCollider>().size = new Vector3(0.01f, 1f, 0.01f); ;
         tileObject.GetComponent<BoxCollider>().isTrigger = true;
-        tileObject.tag = "Gimp";
         tileObject.AddComponent<colTest>();
+        //tileObject.AddComponent<XRSocketInteractor>();
         
 
         return tileObject;
+    }
+
+    // Spawning of the pieces
+
+    private void SpawnAllPieces()
+    {
+
+    }
+
+    private ChessPiece SpawnSinglePiece(ChessPieceType type, int team)
+    {
+        ChessPiece cp = Instantiate(prefabs[(int)type - 1], transform).GetComponent<ChessPiece>();
+
+        cp.type = type;
+        cp.team = team;
+        cp.GetComponent<MeshRenderer>().material = teamMaterials[team];
+
+        return cp;
     }
 
     //Operations

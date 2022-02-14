@@ -6,11 +6,18 @@ public class colTest : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("pog1");
-        if (other.gameObject.tag == "Gimp")
+        if (other.gameObject.tag == "Hand")
         {
-            ChessBoard.findTileHit();
+            //ChessBoard.findTileHit();
+            GameObject someGameObject = GameObject.Find(this.name);
+            someGameObject.layer = LayerMask.NameToLayer("Hover");
         }
             
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GameObject someGameObject = GameObject.Find(this.name);
+        someGameObject.layer = LayerMask.NameToLayer("Tile");
     }
 }
