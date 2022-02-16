@@ -169,7 +169,7 @@ public class ChessBoard : MonoBehaviour
         cp.type = type;
         cp.team = team;
         cp.GetComponent<MeshRenderer>().material = teamMaterials[team];
-
+     
         return cp;
     }
 
