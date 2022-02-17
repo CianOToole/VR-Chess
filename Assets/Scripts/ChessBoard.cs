@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,8 +9,8 @@ public class ChessBoard : MonoBehaviour
 
     [Header("Art stuff")]
     [SerializeField] private Material tileMaterial;
-    [SerializeField] private float tileSize = 1f;
-    [SerializeField] private float yOffset = 1f;
+    [SerializeField] private static float tileSize = 0.07f;
+    [SerializeField] private static float yOffset = 1f;
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
     [SerializeField] private GameObject leftHand;
 
@@ -17,13 +18,14 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
     //LOGIC
-    private ChessPiece[,] chessPieces;
+    private static ChessPiece[,] chessPieces;
+    private static GameObject currentlyDragging;
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
-    private GameObject[,] tiles;
+    private static GameObject[,] tiles;
     private Camera currentCamera;
-    private Vector2Int currentHover;
-    private Vector3 bounds;
+    public static Vector2Int currentHover;
+    private static Vector3 bounds;
 
 
     private void Awake()
@@ -41,6 +43,7 @@ public class ChessBoard : MonoBehaviour
           
             return;
         }
+        
        //var test = leftHand.GetComponent<SphereCollider>();
        // leftHand.GetComponent<XRDirectInteractor>();
         
@@ -182,21 +185,21 @@ public class ChessBoard : MonoBehaviour
                     PositionSinglePiece(x, y, true);
     }
 
-    private void PositionSinglePiece(int x, int y, bool force = false)
+    private static void PositionSinglePiece(int x, int y, bool force = false)
     {
         chessPieces[x, y].currentX = x;
         chessPieces[x, y].currentY = y;
         chessPieces[x, y].transform.position = GetTileCenter(x, y);
+        chessPieces[x, y].transform.rotation = Quaternion.Euler(-90, 0, 0);
 
     }
-    private Vector3 GetTileCenter(int x, int y)
+    private static Vector3 GetTileCenter(int x, int y)
     {
         return new Vector3(x * tileSize, yOffset, y * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2);
     }
 
-
     //Operations
-    private Vector2Int lookupTileIndex(GameObject hitInfo)
+    public static Vector2Int lookupTileIndex(GameObject hitInfo)
     {
         for (int x = 0; x < TILE_COUNT_X; x++)
             for (int y = 0; y < TILE_COUNT_Y; y++)
@@ -207,17 +210,34 @@ public class ChessBoard : MonoBehaviour
             
         
     }
-    //Method that was used to test calling a method in anoter script
-    public static void findTileHit()
+    
+    private static bool MoveTo(ChessPiece cp, int x, int y)
     {
-        Debug.Log("pog2");
+        Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
+        chessPieces[x, y] = cp;
+        chessPieces[previousPosition.x, previousPosition.y] = null;
+        
+        PositionSinglePiece(x, y);
+
+        return true;
     }
+    
+    //Method that was used to test calling a method in anoter script
 
-   
 
-  
+ public static void findTileHit(GameObject piece)
+ {
+     currentlyDragging = piece;
+     ChessPiece currentPiece = currentlyDragging.GetComponent<ChessPiece>();
+     Vector2Int previousPosition = new Vector2Int(currentPiece.currentX, currentPiece.currentY);
+        
+     bool validMove = MoveTo(currentPiece, currentHover.x, currentHover.y);
+     if (!validMove)
+     {
+         currentlyDragging.transform.position = GetTileCenter(previousPosition.x, previousPosition.y);
+         currentlyDragging = null;
+     }
+ }
 
-   
 
-   
 }

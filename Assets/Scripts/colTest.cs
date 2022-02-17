@@ -8,8 +8,9 @@ public class colTest : MonoBehaviour
     {
         if (other.gameObject.tag == "Hand")
         {
-            //ChessBoard.findTileHit();
+            
             GameObject someGameObject = GameObject.Find(this.name);
+            ChessBoard.currentHover = ChessBoard.lookupTileIndex(someGameObject);
             someGameObject.layer = LayerMask.NameToLayer("Hover");
         }
             
@@ -17,7 +18,12 @@ public class colTest : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        GameObject someGameObject = GameObject.Find(this.name);
-        someGameObject.layer = LayerMask.NameToLayer("Tile");
+
+        if (other.gameObject.tag == "Hand")
+        {
+            GameObject someGameObject = GameObject.Find(this.name);
+            someGameObject.layer = LayerMask.NameToLayer("Tile");
+        }
+            
     }
 }

@@ -5,12 +5,12 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Holding : XRGrabInteractable
 {
-    GameObject someGameObject;
+    GameObject tile;
 
     protected override void Awake()
     {
         base.Awake();
-        someGameObject = GameObject.Find(this.name);
+       tile = GameObject.Find(this.name);
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -19,7 +19,7 @@ public class Holding : XRGrabInteractable
        
         if (isSelected)
         {
-            Debug.Log(someGameObject + "is Selected");
+           // Debug.Log(someGameObject + "is Selected");
         }
     }
 
@@ -29,7 +29,8 @@ public class Holding : XRGrabInteractable
         base.OnSelectExited(args);
         if (!isSelected)
         {
-            Debug.Log(someGameObject + "isn't Selected");
+            ChessBoard.findTileHit(this.gameObject);
+            // Debug.Log(someGameObject + "isn't Selected");
         }
     }
 
