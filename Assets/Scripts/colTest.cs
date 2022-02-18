@@ -22,6 +22,7 @@ public class colTest : MonoBehaviour
         if (other.gameObject.tag == "Hand")
         {
             GameObject someGameObject = GameObject.Find(this.name);
+           
             someGameObject.layer = LayerMask.NameToLayer("Tile");
         }
             

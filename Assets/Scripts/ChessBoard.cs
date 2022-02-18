@@ -20,6 +20,8 @@ public class ChessBoard : MonoBehaviour
     //LOGIC
     private static ChessPiece[,] chessPieces;
     private static GameObject currentlyDragging;
+    private static List<ChessPiece> deadWhites = new List<ChessPiece>();
+    private static List<ChessPiece> deadBlacks = new List<ChessPiece>();
     private const int TILE_COUNT_X = 8;
     private const int TILE_COUNT_Y = 8;
     private static GameObject[,] tiles;
@@ -214,6 +216,30 @@ public class ChessBoard : MonoBehaviour
     private static bool MoveTo(ChessPiece cp, int x, int y)
     {
         Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
+
+        if (chessPieces[x, y] != null)
+        {
+            ChessPiece ocp = chessPieces[x, y];
+            if (cp.team == ocp.team)
+            {
+                return false;
+            }
+
+            if(ocp.team == 0)
+            {
+                deadWhites.Add(ocp);
+                ocp.transform.position =(new Vector3(8 * tileSize, yOffset, -1 * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize/2) + (Vector3.forward * 0.03f) * deadWhites.Count);
+                //ocp.transform.localScale = Vector3.Lerp(ocp.transform.localScale, Vector3.one * 0.3f, Time.deltaTime * 1);
+            }
+            else
+            {
+                deadBlacks.Add(ocp);
+                ocp.transform.position = (new Vector3(-1 * tileSize, yOffset, 8 * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2) + (Vector3.back * 0.03f) * deadBlacks.Count);
+            }
+        }
+
+
+
         chessPieces[x, y] = cp;
         chessPieces[previousPosition.x, previousPosition.y] = null;
         
@@ -227,14 +253,15 @@ public class ChessBoard : MonoBehaviour
 
  public static void findTileHit(GameObject piece)
  {
+        
      currentlyDragging = piece;
      ChessPiece currentPiece = currentlyDragging.GetComponent<ChessPiece>();
      Vector2Int previousPosition = new Vector2Int(currentPiece.currentX, currentPiece.currentY);
-        
      bool validMove = MoveTo(currentPiece, currentHover.x, currentHover.y);
      if (!validMove)
      {
          currentlyDragging.transform.position = GetTileCenter(previousPosition.x, previousPosition.y);
+         currentlyDragging.transform.rotation = Quaternion.Euler(-90, 0, 0);
          currentlyDragging = null;
      }
  }
