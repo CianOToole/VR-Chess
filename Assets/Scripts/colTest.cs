@@ -11,6 +11,7 @@ public class colTest : MonoBehaviour
             
             GameObject someGameObject = GameObject.Find(this.name);
             ChessBoard.currentHover = ChessBoard.lookupTileIndex(someGameObject);
+            ChessBoard.HighlightTiles();
             someGameObject.layer = LayerMask.NameToLayer("Hover");
         }
             
@@ -23,7 +24,7 @@ public class colTest : MonoBehaviour
         {
             GameObject someGameObject = GameObject.Find(this.name);
            
-            someGameObject.layer = LayerMask.NameToLayer("Tile");
+            someGameObject.layer = (ChessBoard.ContainsValidMove(ref ChessBoard.availableMoves, ChessBoard.currentHover)) ? LayerMask.NameToLayer("Highlight") : LayerMask.NameToLayer("Tile");
         }
             
     }

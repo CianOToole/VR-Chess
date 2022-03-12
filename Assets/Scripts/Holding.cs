@@ -19,7 +19,10 @@ public class Holding : XRGrabInteractable
        
         if (isSelected)
         {
-           // Debug.Log(someGameObject + "is Selected");
+            ChessBoard.currentlyDragging = this.gameObject;
+            //Gets list of where I can go and highlights the tiles.
+            ChessBoard.availableMoves = ChessBoard.currentlyDragging.GetComponent<ChessPiece>().GetAvailableMoves(ref ChessBoard.chessPieces, ChessBoard.TILE_COUNT_X, ChessBoard.TILE_COUNT_Y);
+            ChessBoard.HighlightTiles();
         }
     }
 
@@ -31,6 +34,7 @@ public class Holding : XRGrabInteractable
         {
             ChessBoard.findTileHit(this.gameObject);
             // Debug.Log(someGameObject + "isn't Selected");
+            ChessBoard.RemoveHighlightTiles();
         }
     }
 

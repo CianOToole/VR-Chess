@@ -18,12 +18,13 @@ public class ChessBoard : MonoBehaviour
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
     //LOGIC
-    private static ChessPiece[,] chessPieces;
-    private static GameObject currentlyDragging;
+    public static ChessPiece[,] chessPieces;
+    public static GameObject currentlyDragging;
+    public static List<Vector2Int> availableMoves = new List<Vector2Int>();
     private static List<ChessPiece> deadWhites = new List<ChessPiece>();
     private static List<ChessPiece> deadBlacks = new List<ChessPiece>();
-    private const int TILE_COUNT_X = 8;
-    private const int TILE_COUNT_Y = 8;
+    public const int TILE_COUNT_X = 8;
+    public const int TILE_COUNT_Y = 8;
     private static GameObject[,] tiles;
     private Camera currentCamera;
     public static Vector2Int currentHover;
@@ -215,6 +216,9 @@ public class ChessBoard : MonoBehaviour
     
     private static bool MoveTo(ChessPiece cp, int x, int y)
     {
+        if (!ContainsValidMove(ref availableMoves, new Vector2(x, y)))
+            return false;
+
         Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
 
         if (chessPieces[x, y] != null)
@@ -247,11 +251,17 @@ public class ChessBoard : MonoBehaviour
 
         return true;
     }
+    public static bool ContainsValidMove(ref List<Vector2Int> moves, Vector2 pos)
+    {
+        for (int i = 0; i < moves.Count; i++)
+            if (moves[i].x == pos.x && moves[i].y == pos.y)
+                return true;
+
+        return false;
+    }
     
     //Method that was used to test calling a method in anoter script
-
-
- public static void findTileHit(GameObject piece)
+    public static void findTileHit(GameObject piece)
  {
         
      currentlyDragging = piece;
@@ -266,5 +276,19 @@ public class ChessBoard : MonoBehaviour
      }
  }
 
+    //Highlight Tiles
+    public static void HighlightTiles()
+    {
+        for (int i = 0; i < availableMoves.Count; i++)
+            tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Highlight");
+        
+    }
 
+    public static void RemoveHighlightTiles()
+    {
+        for (int i = 0; i < availableMoves.Count; i++)
+            tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Tile");
+
+        availableMoves.Clear();
+    }
 }

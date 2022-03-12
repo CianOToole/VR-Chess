@@ -941,8 +941,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileMaterial: {fileID: 2100000, guid: 33417d8c55075bb46bddafe2af2f56c6, type: 2}
-  tileSize: 0.07
-  yOffset: 1
   boardCenter: {x: 0, y: 0, z: 0}
   leftHand: {fileID: 519038282}
   prefabs:
@@ -955,7 +953,6 @@ MonoBehaviour:
   teamMaterials:
   - {fileID: 2100000, guid: 5750b56d97b55e543974b73435ac0687, type: 2}
   - {fileID: 2100000, guid: 3da8ac62e3b68454b9d08fcfbb786f52, type: 2}
-  currentHover: {x: 0, y: 0}
 --- !u!4 &148494647
 Transform:
   m_ObjectHideFlags: 0
