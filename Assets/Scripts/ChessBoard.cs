@@ -260,7 +260,7 @@ public class ChessBoard : MonoBehaviour
         return false;
     }
     
-    //Method that was used to test calling a method in anoter script
+    //used when a user moves a chess piece to call the MoveTo function
     public static void findTileHit(GameObject piece)
  {
         

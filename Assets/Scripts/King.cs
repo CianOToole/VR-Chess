@@ -8,6 +8,14 @@ public class King : ChessPiece
     {
         List<Vector2Int> r = new List<Vector2Int>();
 
+        //Right
+        if (board[currentX + 1, currentY] == null)
+        //Left
+
+        //Up
+
+        //Down
+
         return r;
     }
 }
