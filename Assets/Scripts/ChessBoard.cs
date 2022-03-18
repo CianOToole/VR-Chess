@@ -36,6 +36,8 @@ public class ChessBoard : MonoBehaviour
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
+        //ChessAI.GetBestMove1("e2e4");
+        ChessAI.GetBestMove1();
     }
 
     private void Update()
@@ -165,7 +167,9 @@ public class ChessBoard : MonoBehaviour
         chessPieces[7, 7] = SpawnSinglePiece(ChessPieceType.Rook, blackTeam);
 
         //for (int i = 0; i < TILE_COUNT_X; i++)
-            //chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, blackTeam);
+        //chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, blackTeam);
+        
+
 
     }
     private ChessPiece SpawnSinglePiece(ChessPieceType type, int team)
