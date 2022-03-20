@@ -29,15 +29,17 @@ public class ChessBoard : MonoBehaviour
     private Camera currentCamera;
     public static Vector2Int currentHover;
     private static Vector3 bounds;
-
+    private static Dictionary<string, string> gridSetter;
+    public static bool myTurn;
+    public static string allMoves;
 
     private void Awake()
     {
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
-        //ChessAI.GetBestMove1("e2e4");
-        ChessAI.GetBestMove1();
+        //ChessAI.GetBestMove1();
+        setPieceLocation();
     }
 
     private void Update()
@@ -48,47 +50,11 @@ public class ChessBoard : MonoBehaviour
           
             return;
         }
-        
-       //var test = leftHand.GetComponent<SphereCollider>();
-       // leftHand.GetComponent<XRDirectInteractor>();
-        
-        //findTileHit(tiles[0,0]);
-        //Debug.Log("Trigger On : " + leftHand.name);
 
-
-
-        /*
-        RaycastHit info;
-        Ray ray = currentCamera.ScreenPointToRay(Input.mousePosition);
-        if(Physics.Raycast(ray, out info, 100, LayerMask.GetMask("Tile"))) 
+        if (!myTurn)
         {
-            // Get the indexes of the tile i've hit
-            Vector2Int hitPosition = lookupTileIndex(info.transform.gameObject);
-            // If we're hovering a tile after not hovering any tiles
-            if(currentHover == -Vector2Int.one)
-            {
-                currentHover = hitPosition;
-                tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
-            }
-
-            // If we were already hovering a tile, change the pervious one
-            if (currentHover != hitPosition)
-            {
-                tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
-                currentHover = hitPosition;
-                tiles[hitPosition.x, hitPosition.y].layer = LayerMask.NameToLayer("Hover");
-            }
 
         }
-        else
-        {
-            if(currentHover != -Vector2Int.one)
-            {
-                tiles[currentHover.x, currentHover.y].layer = LayerMask.NameToLayer("Tile");
-                currentHover = -Vector2Int.one;
-            }
-        }
-        */
     }
 
     //Generating the Board
@@ -249,6 +215,10 @@ public class ChessBoard : MonoBehaviour
 
 
         chessPieces[x, y] = cp;
+        string pastPlace = cp.gridSpot;
+        cp.gridSpot = GetKeyFromValue(x.ToString()+ "," + y.ToString());
+        allMoves += pastPlace + cp.gridSpot + " ";
+        Debug.Log(allMoves);
         chessPieces[previousPosition.x, previousPosition.y] = null;
         
         PositionSinglePiece(x, y);
@@ -278,7 +248,52 @@ public class ChessBoard : MonoBehaviour
          currentlyDragging.transform.rotation = Quaternion.Euler(-90, 0, 0);
          currentlyDragging = null;
      }
+
  }
+
+    public static void AImove()
+    {
+
+    }
+
+    public static void setPieceLocation()
+    {
+        gridSetter = ChessPieceGridLocation.giveGrid();
+        string xString;
+        string yString;
+        string xyTogether;
+        for (int x = 0; x < TILE_COUNT_X; x++)
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+            {
+                if (chessPieces[x, y] != null) { 
+                    xString = chessPieces[x, y].currentX.ToString();
+                    yString = chessPieces[x, y].currentY.ToString();
+                    xyTogether = xString + "," + yString;
+                    //Debug.Log(gridSetter.ContainsValue(""));
+                    if (gridSetter.ContainsValue(xyTogether))
+                    {
+                        chessPieces[x, y].gridSpot = GetKeyFromValue(xyTogether);
+                       // Debug.Log(chessPieces[x, y].gridSpot + chessPieces[x, y].type);
+                    }
+                }
+            }
+
+
+
+
+    }
+
+    public static string GetKeyFromValue(string valueVar)
+    {
+        foreach (string keyVar in gridSetter.Keys)
+        {
+            if (gridSetter[keyVar] == valueVar)
+            {
+                return keyVar;
+            }
+        }
+        return null;
+    }
 
     //Highlight Tiles
     public static void HighlightTiles()

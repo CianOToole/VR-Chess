@@ -93,8 +93,8 @@ public class ChessAI : MonoBehaviour
         string bestmove = "bestmove";
         if (text.Contains(bestmove))
         {
-            UnityEngine.Debug.Log("Pog");
-            UnityEngine.Debug.Log("[UCI] " + text);
+            
+            UnityEngine.Debug.Log(text);
         }
         //Debug.WriteLine("[UCI] " + text);
     }
