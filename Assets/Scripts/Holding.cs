@@ -33,7 +33,6 @@ public class Holding : XRGrabInteractable
         if (!isSelected)
         {
             ChessBoard.findTileHit(this.gameObject);
-            // Debug.Log(someGameObject + "isn't Selected");
             ChessBoard.RemoveHighlightTiles();
         }
     }

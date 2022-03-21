@@ -38,8 +38,9 @@ public class ChessBoard : MonoBehaviour
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
-        //ChessAI.GetBestMove1();
         setPieceLocation();
+        ChessAI.GetBestMove1();
+        
     }
 
     private void Update()
@@ -51,10 +52,7 @@ public class ChessBoard : MonoBehaviour
             return;
         }
 
-        if (!myTurn)
-        {
-
-        }
+        
     }
 
     //Generating the Board
@@ -119,8 +117,8 @@ public class ChessBoard : MonoBehaviour
         chessPieces[6, 0] = SpawnSinglePiece(ChessPieceType.Knight, whiteTeam);
         chessPieces[7, 0] = SpawnSinglePiece(ChessPieceType.Rook, whiteTeam);
 
-       // for (int i = 0; i < TILE_COUNT_X; i++)
-           // chessPieces[i, 1] = SpawnSinglePiece(ChessPieceType.Pawn, whiteTeam);
+        for (int i = 0; i < TILE_COUNT_X; i++)
+            chessPieces[i, 1] = SpawnSinglePiece(ChessPieceType.Pawn, whiteTeam);
 
         //Black
         chessPieces[0, 7] = SpawnSinglePiece(ChessPieceType.Rook, blackTeam);
@@ -132,8 +130,8 @@ public class ChessBoard : MonoBehaviour
         chessPieces[6, 7] = SpawnSinglePiece(ChessPieceType.Knight, blackTeam);
         chessPieces[7, 7] = SpawnSinglePiece(ChessPieceType.Rook, blackTeam);
 
-        //for (int i = 0; i < TILE_COUNT_X; i++)
-        //chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, blackTeam);
+        for (int i = 0; i < TILE_COUNT_X; i++)
+            chessPieces[i, 6] = SpawnSinglePiece(ChessPieceType.Pawn, blackTeam);
         
 
 
@@ -160,10 +158,18 @@ public class ChessBoard : MonoBehaviour
 
     private static void PositionSinglePiece(int x, int y, bool force = false)
     {
-        chessPieces[x, y].currentX = x;
-        chessPieces[x, y].currentY = y;
-        chessPieces[x, y].transform.position = GetTileCenter(x, y);
-        chessPieces[x, y].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        try
+        {
+            chessPieces[x, y].currentX = x;
+            chessPieces[x, y].currentY = y;
+            chessPieces[x, y].transform.position = GetTileCenter(x, y);
+            chessPieces[x, y].transform.rotation = Quaternion.Euler(-90, 0, 0);
+        } catch (Exception e)
+        {
+            Debug.Log(e);
+        }
+
+        
 
     }
     private static Vector3 GetTileCenter(int x, int y)
@@ -184,15 +190,20 @@ public class ChessBoard : MonoBehaviour
         
     }
     
-    private static bool MoveTo(ChessPiece cp, int x, int y)
+    private static bool MoveTo(ChessPiece cp, int x, int y, bool NotaiMove)
     {
-        if (!ContainsValidMove(ref availableMoves, new Vector2(x, y)))
-            return false;
-
+        if (NotaiMove) { 
+            if (!ContainsValidMove(ref availableMoves, new Vector2(x, y)))
+            {
+                return false;
+            }
+        }
+        
         Vector2Int previousPosition = new Vector2Int(cp.currentX, cp.currentY);
 
         if (chessPieces[x, y] != null)
         {
+            
             ChessPiece ocp = chessPieces[x, y];
             if (cp.team == ocp.team)
             {
@@ -212,17 +223,17 @@ public class ChessBoard : MonoBehaviour
             }
         }
 
-
-
         chessPieces[x, y] = cp;
-        string pastPlace = cp.gridSpot;
-        cp.gridSpot = GetKeyFromValue(x.ToString()+ "," + y.ToString());
-        allMoves += pastPlace + cp.gridSpot + " ";
-        Debug.Log(allMoves);
+        if (NotaiMove)
+        {
+            string pastPlace = cp.gridSpot;
+            cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
+            allMoves += pastPlace + cp.gridSpot + " ";
+            
+        }
+        cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
         chessPieces[previousPosition.x, previousPosition.y] = null;
-        
         PositionSinglePiece(x, y);
-
         return true;
     }
     public static bool ContainsValidMove(ref List<Vector2Int> moves, Vector2 pos)
@@ -241,7 +252,7 @@ public class ChessBoard : MonoBehaviour
      currentlyDragging = piece;
      ChessPiece currentPiece = currentlyDragging.GetComponent<ChessPiece>();
      Vector2Int previousPosition = new Vector2Int(currentPiece.currentX, currentPiece.currentY);
-     bool validMove = MoveTo(currentPiece, currentHover.x, currentHover.y);
+     bool validMove = MoveTo(currentPiece, currentHover.x, currentHover.y, true);
      if (!validMove)
      {
          currentlyDragging.transform.position = GetTileCenter(previousPosition.x, previousPosition.y);
@@ -251,9 +262,45 @@ public class ChessBoard : MonoBehaviour
 
  }
 
-    public static void AImove()
+    public static void AImove(string move)
     {
+        string chessPieceToMove = move.Substring(3, 2);
+        string chessPieceAt = move.Substring(1, 2);
+        //Debug.Log(move);
+        if (gridSetter.ContainsKey(chessPieceToMove))
+        {
+            
+                string passThis = gridSetter[chessPieceToMove];
+                
+                string getThis = gridSetter[chessPieceAt];
 
+                //location the piece has to go
+                string xS = passThis.Substring(0, 1);
+                string yS = passThis.Substring(2, 1);
+
+                //The piece we want to move
+                string xSt = getThis.Substring(0, 1);
+                string ySt = getThis.Substring(2, 1);
+
+                
+                int x, y, b, f;
+                //location the piece has to go
+                x = Int32.Parse(xS);
+                y = Int32.Parse(yS);
+
+                //The piece we want to move
+                b = Int32.Parse(xSt);
+                f = Int32.Parse(ySt);
+                
+                
+                ChessPiece currentPieceGet = chessPieces[b, f];
+                GameObject currentTileGet = tiles[x, y];
+                Vector2Int tile = lookupTileIndex(currentTileGet.gameObject);
+                bool validMove = MoveTo(currentPieceGet, tile.x, tile.y, false);
+                Debug.Log(validMove + "the move should work");
+
+        }
+        
     }
 
     public static void setPieceLocation()
