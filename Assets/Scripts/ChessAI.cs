@@ -74,8 +74,7 @@ public class ChessAI : MonoBehaviour
         SendLine("uci");
         SendLine("isready");
         SendLine("ucinewgame");
-        ChessAI.SendLine("position startpos move e2e4");
-        ChessAI.SendLine("go movetime 5000");
+        
 
 
         //return bestMoveInAlgebraicNotation;
@@ -95,7 +94,8 @@ public class ChessAI : MonoBehaviour
         {
             string move = text.Substring(8, 5);
             ChessBoard.allMoves += move + " ";
-            ChessBoard.AImove(move);
+            ChessBoard.currentAImove = move;
+            ChessBoard.myTurn = true;
             //UnityEngine.Debug.Log(move);
         }
         

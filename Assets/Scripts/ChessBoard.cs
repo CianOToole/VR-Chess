@@ -31,10 +31,13 @@ public class ChessBoard : MonoBehaviour
     private static Vector3 bounds;
     private static Dictionary<string, string> gridSetter;
     public static bool myTurn;
+    public static string currentAImove;
     public static string allMoves;
+    public static int bruh;
 
     private void Awake()
     {
+        myTurn = false;
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
@@ -52,7 +55,12 @@ public class ChessBoard : MonoBehaviour
             return;
         }
 
-        
+        if (myTurn)
+        {
+            bruh = 1;
+            AImove(currentAImove);
+            myTurn = false;
+        }
     }
 
     //Generating the Board
@@ -229,7 +237,9 @@ public class ChessBoard : MonoBehaviour
             string pastPlace = cp.gridSpot;
             cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
             allMoves += pastPlace + cp.gridSpot + " ";
-            
+            ChessAI.SendLine("position startpos move " + allMoves);
+            ChessAI.SendLine("go movetime 5000");
+
         }
         cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
         chessPieces[previousPosition.x, previousPosition.y] = null;
