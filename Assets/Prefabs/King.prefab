@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5932545448166381246}
   - component: {fileID: -5180151993614101880}
   - component: {fileID: 864454920216682533}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: King
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,9 +29,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4278125775718885060}
-  m_LocalRotation: {x: -0.70710695, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.2550642, y: -1.176, z: -0.03599999}
-  m_LocalScale: {x: 1.21, y: 1.2000011, z: 1}
+  m_LocalRotation: {x: -0.5004935, y: -0.49950516, z: -0.49950567, w: 0.50049484}
+  m_LocalPosition: {x: -0.11677325, y: 0.99524975, z: -2.9227757}
+  m_LocalScale: {x: 0.85, y: 0.81, z: 0.79}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   team: 0
   currentX: 0
   currentY: 0
+  gridSpot: 
   type: 0
 --- !u!54 &-5932545448166381246
 Rigidbody:

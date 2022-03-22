@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6497768579984691797}
   - component: {fileID: -5455295598215274469}
   - component: {fileID: 1127496790752965064}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Bishop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,9 +29,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519336842952527564}
-  m_LocalRotation: {x: -0.70710695, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.25709996, y: -1.1678, z: 0.108000025}
-  m_LocalScale: {x: 1.21, y: 1.2000011, z: 1}
+  m_LocalRotation: {x: -0.5004935, y: -0.49950516, z: -0.49950567, w: 0.50049484}
+  m_LocalPosition: {x: -0.11677325, y: 0.99524975, z: -2.9227757}
+  m_LocalScale: {x: 0.85, y: 0.81, z: 0.79}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -100,6 +100,7 @@ MonoBehaviour:
   team: 0
   currentX: 0
   currentY: 0
+  gridSpot: 
   type: 0
 --- !u!65 &-6497768579984691797
 BoxCollider:

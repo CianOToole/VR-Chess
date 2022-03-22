@@ -9,7 +9,7 @@ public class ChessBoard : MonoBehaviour
 
     [Header("Art stuff")]
     [SerializeField] private Material tileMaterial;
-    [SerializeField] private static float tileSize = 0.07f;
+    [SerializeField] private static float tileSize = 0.054f;
     [SerializeField] private static float yOffset = 1f;
     [SerializeField] private Vector3 boardCenter = Vector3.zero;
     [SerializeField] private GameObject leftHand;
@@ -151,7 +151,8 @@ public class ChessBoard : MonoBehaviour
         cp.type = type;
         cp.team = team;
         cp.GetComponent<MeshRenderer>().material = teamMaterials[team];
-     
+        
+        Physics.IgnoreLayerCollision(10, 10);
         return cp;
     }
 
