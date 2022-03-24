@@ -221,12 +221,18 @@ public class ChessBoard : MonoBehaviour
 
             if(ocp.team == 0)
             {
+                //if (ocp.type == ChessPieceType.King)
+                    //CheckMate(1);
+
                 deadWhites.Add(ocp);
                 ocp.transform.position =(new Vector3(8 * tileSize, yOffset, -1 * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize/2) + (Vector3.forward * 0.03f) * deadWhites.Count);
                 //ocp.transform.localScale = Vector3.Lerp(ocp.transform.localScale, Vector3.one * 0.3f, Time.deltaTime * 1);
             }
             else
             {
+                //if (ocp.type == ChessPieceType.King)
+                    //CheckMate(0);
+
                 deadBlacks.Add(ocp);
                 ocp.transform.position = (new Vector3(-1 * tileSize, yOffset, 8 * tileSize) - bounds + new Vector3(tileSize / 2, 0, tileSize / 2) + (Vector3.back * 0.03f) * deadBlacks.Count);
             }
@@ -367,5 +373,15 @@ public class ChessBoard : MonoBehaviour
             tiles[availableMoves[i].x, availableMoves[i].y].layer = LayerMask.NameToLayer("Tile");
 
         availableMoves.Clear();
+    }
+
+    private void CheckMate(int team)
+    {
+        DisplayVictory(team);
+    }
+
+    private void DisplayVictory(int winningTeam)
+    {
+
     }
 }
