@@ -37,5 +37,30 @@ public class Holding : XRGrabInteractable
         }
     }
 
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Hand")
+        {
+
+            GameObject someGameObject = GameObject.Find(this.name);
+            Debug.Log(someGameObject.name);
+            
+        }
+
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+
+        if (other.gameObject.tag == "Hand")
+        {
+            GameObject someGameObject = GameObject.Find(this.name);
+
+           
+        }
+
+    }
+    
 
 }
