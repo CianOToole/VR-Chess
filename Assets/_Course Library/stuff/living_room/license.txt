@@ -1,0 +1,11 @@
+Model Information:
+* title:	Living Room
+* source:	https://sketchfab.com/3d-models/living-room-af3af8ac60ab48a4a30e415266c1ef06
+* author:	prof.alessandrolima (https://sketchfab.com/prof.alessandrolima)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Living Room" (https://sketchfab.com/3d-models/living-room-af3af8ac60ab48a4a30e415266c1ef06) by prof.alessandrolima (https://sketchfab.com/prof.alessandrolima) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
