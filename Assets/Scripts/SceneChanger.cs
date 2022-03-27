@@ -6,28 +6,43 @@ using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
 
-    public static int loadInt = 1;
+    
     public void playGame()
     {
-        SceneManager.LoadScene(loadInt);
+        SceneManager.LoadScene(1);
+    }
+
+    public void playGameTwo()
+    {
+        SceneManager.LoadScene(2);
+    }
+
+    public void playGameThree()
+    {
+        SceneManager.LoadScene(4);
     }
 
     public void setSceneOne()
     {
-        loadInt = 1;
+        
         SceneManager.LoadScene(0);
     }
 
     public void setSceneTwo()
     {
-        loadInt = 2;
+        
         SceneManager.LoadScene(5);
     }
 
     public void setSceneThree()
     {
-        loadInt = 4;
+        
         SceneManager.LoadScene(3);
+    }
+
+    public void quit()
+    {
+        Application.Quit();
     }
 
 }
