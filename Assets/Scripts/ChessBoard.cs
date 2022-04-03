@@ -314,7 +314,7 @@ public class ChessBoard : MonoBehaviour
                 GameObject currentTileGet = tiles[x, y];
                 Vector2Int tile = lookupTileIndex(currentTileGet.gameObject);
                 bool validMove = MoveTo(currentPieceGet, tile.x, tile.y, false);
-                Debug.Log(validMove + "the move should work");
+                //Debug.Log(validMove + "the move should work");
 
         }
         
