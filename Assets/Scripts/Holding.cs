@@ -22,6 +22,7 @@ public class Holding : XRGrabInteractable
             ChessBoard.currentlyDragging = this.gameObject;
             //Gets list of where I can go and highlights the tiles.
             ChessBoard.availableMoves = ChessBoard.currentlyDragging.GetComponent<ChessPiece>().GetAvailableMoves(ref ChessBoard.chessPieces, ChessBoard.TILE_COUNT_X, ChessBoard.TILE_COUNT_Y);
+            ChessBoard.specialMove = ChessBoard.currentlyDragging.GetComponent<ChessPiece>().GetSpecialMoves(ref ChessBoard.chessPieces, ref ChessBoard.moveList, ref ChessBoard.availableMoves);
             ChessBoard.HighlightTiles();
         }
     }

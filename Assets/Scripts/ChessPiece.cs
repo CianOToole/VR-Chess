@@ -48,20 +48,10 @@ public class ChessPiece : MonoBehaviour
 
         return r;
     }
-    /*
-    public virtual void SetPosition(Vector3 position, bool force = false)
+
+    public virtual SpecialMove GetSpecialMoves(ref ChessPiece[,] board, ref List<Vector2Int[]> moveList, ref List<Vector2Int> availableMoves)
     {
-        desiredPosition = position;
-        this.transform.rotation = Quaternion.Euler(-90, 0, 0);
-        if (force)
-            transform.position = desiredPosition;
+        return SpecialMove.None;
     }
     
-    public virtual void SetScale(Vector3 scale, bool force = false)
-    {
-        desiredScale = scale;
-        if (force)
-            transform.localScale = desiredScale;
-    }
-   */
 }
