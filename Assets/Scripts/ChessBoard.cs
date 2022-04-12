@@ -500,4 +500,93 @@ public class ChessBoard : MonoBehaviour
             }
         }
     }
+
+    public static void PreventCheck()
+    {
+        ChessPiece targetKing = null;
+        for (int x = 0; x < TILE_COUNT_X; x++)
+            for (int y = 0; y < TILE_COUNT_Y; y++)
+                if (chessPieces[x, y] != null)
+                    if (chessPieces[x, y].type == ChessPieceType.King)
+                        if (chessPieces[x, y].team == currentlyDragging.GetComponent<ChessPiece>().team)
+                            targetKing = chessPieces[x, y];
+
+        //Removing move that will put the user in check
+        SimulateMoveForSinglePiece(currentlyDragging.GetComponent<ChessPiece>(), ref availableMoves, targetKing);
+    }
+
+    private static void SimulateMoveForSinglePiece(ChessPiece cp, ref List<Vector2Int> moves, ChessPiece targetKing)
+    {
+        // Save the current values, to reset after the function call
+        int actualX = cp.currentX;
+        int actualY = cp.currentY;
+        List<Vector2Int> movesToRemove = new List<Vector2Int>();
+
+        // Going through all the moves, simualte them and check if we're in check
+        for (int i = 0; i < moves.Count; i++)
+        {
+            int simX = moves[i].x;
+            int simY = moves[i].y;
+
+            Vector2Int kingPositionThisSim = new Vector2Int(targetKing.currentX, targetKing.currentY);
+            //Did we simulate the king's move
+            if (cp.type == ChessPieceType.King)
+                kingPositionThisSim = new Vector2Int(simX, simY);
+
+            ChessPiece[,] simulation = new ChessPiece[TILE_COUNT_X, TILE_COUNT_Y];
+            List<ChessPiece> simAttackingPieces = new List<ChessPiece>();
+            for (int x = 0; x < TILE_COUNT_X; x++)
+            {
+                for (int y = 0; y < TILE_COUNT_Y; y++)
+                {
+                    if (chessPieces[x, y] != null)
+                    {
+                        simulation[x, y] = chessPieces[x, y];
+                        if (simulation[x, y].team != cp.team)
+                            simAttackingPieces.Add(simulation[x, y]);
+                    }
+
+                }
+            }
+
+            //Simulate that move
+            simulation[actualX, actualY] = null;
+            cp.currentX = simX;
+            cp.currentY = simY;
+            simulation[simX, simY] = cp;
+
+            //Did one of the piece got taken down during our simulation
+            var deadPiece = simAttackingPieces.Find(c => c.currentX == simX && c.currentY == simY);
+            if (deadPiece != null)
+                simAttackingPieces.Remove(deadPiece);
+
+            //Get all the simulated attacking pieces moves
+            List<Vector2Int> simMoves = new List<Vector2Int>();
+            for (int a = 0; a < simAttackingPieces.Count; a++)
+            {
+                var pieceMoves = simAttackingPieces[a].GetAvailableMoves(ref simulation, TILE_COUNT_X, TILE_COUNT_Y);
+                for (int b = 0; b < pieceMoves.Count; b++)
+                    simMoves.Add(pieceMoves[b]);
+            }
+
+            //Is the king in trouble? if so, remove the move
+            if(ContainsValidMove(ref simMoves, kingPositionThisSim))
+            {
+                movesToRemove.Add(moves[i]);
+            }
+
+            //Restore the actual CP data
+            cp.currentX = actualX;
+            cp.currentY = actualY;
+        }
+
+
+            // Remove from the current available move list
+            for (int i = 0; i < movesToRemove.Count; i++)
+            {
+                moves.Remove(movesToRemove[i]);
+            }
+        
+
+    }
 }
