@@ -11,7 +11,7 @@ public class colTest : MonoBehaviour
             
             GameObject someGameObject = GameObject.Find(this.name);
             ChessBoard.currentHover = ChessBoard.lookupTileIndex(someGameObject);
-            ChessBoard.HighlightTiles();
+            //ChessBoard.HighlightTiles();
             someGameObject.layer = LayerMask.NameToLayer("Hover");
         }
             

@@ -25,9 +25,14 @@ public class ChessBoard : MonoBehaviour
     [Header("Prefabs & Materials")]
     [SerializeField] private GameObject[] prefabs;
     [SerializeField] private Material[] teamMaterials;
+
+    [Header("UI")]
+    [SerializeField] public GameObject[] winLossUI;
+
     //LOGIC
     public static ChessPiece[,] chessPieces;
     public static GameObject currentlyDragging;
+    public static int winLoss = 3;
     public static List<Vector2Int> availableMoves = new List<Vector2Int>();
     private static List<ChessPiece> deadWhites = new List<ChessPiece>();
     private static List<ChessPiece> deadBlacks = new List<ChessPiece>();
@@ -44,6 +49,7 @@ public class ChessBoard : MonoBehaviour
     public static string allMoves;
     public static SpecialMove specialMove;
     public static List<Vector2Int[]> moveList = new List<Vector2Int[]>();
+    
 
 
     private void Awake()
@@ -53,9 +59,10 @@ public class ChessBoard : MonoBehaviour
         SpawnAllPieces();
         PositionAllPieces();
         setPieceLocation();
-        //ChessAI.GetBestMove1();
-       
+        ChessAI.GetBestMove1();
         
+        
+
     }
 
     private void Update()
@@ -72,6 +79,16 @@ public class ChessBoard : MonoBehaviour
            
             AImove(currentAImove);
             myTurn = false;
+        }
+
+        if (winLoss == 0)
+        {
+            winLossUI[0].SetActive(true);
+        }
+
+        if (winLoss == 1)
+        {
+            winLossUI[1].SetActive(true);
         }
     }
 
@@ -256,8 +273,8 @@ public class ChessBoard : MonoBehaviour
             string pastPlace = cp.gridSpot;
             cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
             allMoves += pastPlace + cp.gridSpot + " ";
-            //ChessAI.SendLine("position startpos move " + allMoves);
-            //ChessAI.SendLine("go movetime 5000");
+            ChessAI.SendLine("position startpos move " + allMoves);
+            ChessAI.SendLine("go movetime 5000");
 
         }
         cp.gridSpot = GetKeyFromValue(x.ToString() + "," + y.ToString());
@@ -268,7 +285,7 @@ public class ChessBoard : MonoBehaviour
         ProcessSpecialMove();
         if (CheckForCheckmate())
         {
-
+            CheckMate(cp.team);
         }
 
         return true;
@@ -306,38 +323,40 @@ public class ChessBoard : MonoBehaviour
         //Debug.Log(move);
         if (gridSetter.ContainsKey(chessPieceToMove))
         {
-            
-                string passThis = gridSetter[chessPieceToMove];
-                
-                string getThis = gridSetter[chessPieceAt];
 
-                //location the piece has to go
-                string xS = passThis.Substring(0, 1);
-                string yS = passThis.Substring(2, 1);
+            string passThis = gridSetter[chessPieceToMove];
 
-                //The piece we want to move
-                string xSt = getThis.Substring(0, 1);
-                string ySt = getThis.Substring(2, 1);
+            string getThis = gridSetter[chessPieceAt];
 
-                
-                int x, y, b, f;
-                //location the piece has to go
-                x = Int32.Parse(xS);
-                y = Int32.Parse(yS);
+            //location the piece has to go
+            string xS = passThis.Substring(0, 1);
+            string yS = passThis.Substring(2, 1);
 
-                //The piece we want to move
-                b = Int32.Parse(xSt);
-                f = Int32.Parse(ySt);
-                
-                
-                ChessPiece currentPieceGet = chessPieces[b, f];
-                GameObject currentTileGet = tiles[x, y];
-                Vector2Int tile = lookupTileIndex(currentTileGet.gameObject);
-                bool validMove = MoveTo(currentPieceGet, tile.x, tile.y, false);
-                //Debug.Log(validMove + "the move should work");
+            //The piece we want to move
+            string xSt = getThis.Substring(0, 1);
+            string ySt = getThis.Substring(2, 1);
+
+
+            int x, y, b, f;
+            //location the piece has to go
+            x = Int32.Parse(xS);
+            y = Int32.Parse(yS);
+
+            //The piece we want to move
+            b = Int32.Parse(xSt);
+            f = Int32.Parse(ySt);
+
+
+            ChessPiece currentPieceGet = chessPieces[b, f];
+            GameObject currentTileGet = tiles[x, y];
+            currentlyDragging = currentPieceGet.gameObject;
+            availableMoves = currentlyDragging.GetComponent<ChessPiece>().GetAvailableMoves(ref chessPieces, TILE_COUNT_X, TILE_COUNT_Y);
+            specialMove = currentlyDragging.GetComponent<ChessPiece>().GetSpecialMoves(ref chessPieces, ref moveList, ref availableMoves);
+            Vector2Int tile = lookupTileIndex(currentTileGet.gameObject);
+            bool validMove = MoveTo(currentPieceGet, tile.x, tile.y, false);
+            //Debug.Log(validMove + "the move should work");
 
         }
-        
     }
 
     public static void setPieceLocation()
@@ -395,16 +414,31 @@ public class ChessBoard : MonoBehaviour
         availableMoves.Clear();
     }
 
-    private void CheckMate(int team)
+    private static void CheckMate(int team)
     {
         DisplayVictory(team);
     }
 
-    private void DisplayVictory(int winningTeam)
+    private static void DisplayVictory(int winningTeam)
     {
+        
+        if (winningTeam == 0)
+        {
+            //GameObject win = GameObject.Find("ChessWin");
+            //winLossUI[0].SetActive(true);
+            //win.transform.position = new Vector3(-0.749f, -1.101f, -25.367f);
+            winLoss = 0;
+        }
 
+        if (winningTeam == 1)
+        {
+            //GameObject loss = GameObject.Find("ChessLoss");
+            //winLossUI[1].SetActive(true);
+            Debug.Log("f");
+            winLoss = 1;
+            //loss.transform.position = new Vector3(-0.749f, -1.101f, -25.367f);
+        }
     }
-
 
     private static void ProcessSpecialMove()
     {
