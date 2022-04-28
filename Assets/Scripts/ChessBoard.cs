@@ -228,7 +228,7 @@ public class ChessBoard : MonoBehaviour
         
     }
     
-    private static bool MoveTo(ChessPiece cp, int x, int y, bool NotaiMove)
+     private static bool MoveTo(ChessPiece cp, int x, int y, bool NotaiMove)
     {
         if (NotaiMove) { 
             if (!ContainsValidMove(ref availableMoves, new Vector2Int(x, y)))
@@ -414,11 +414,13 @@ public class ChessBoard : MonoBehaviour
         availableMoves.Clear();
     }
 
+    //this 
     private static void CheckMate(int team)
     {
         DisplayVictory(team);
     }
 
+    //this 
     private static void DisplayVictory(int winningTeam)
     {
         
@@ -434,12 +436,13 @@ public class ChessBoard : MonoBehaviour
         {
             //GameObject loss = GameObject.Find("ChessLoss");
             //winLossUI[1].SetActive(true);
-            Debug.Log("f");
+            
             winLoss = 1;
             //loss.transform.position = new Vector3(-0.749f, -1.101f, -25.367f);
         }
     }
 
+    //this 
     private static void ProcessSpecialMove()
     {
         var test = new ChessBoard();
@@ -539,6 +542,7 @@ public class ChessBoard : MonoBehaviour
         }
     }
 
+    //this 
     public static void PreventCheck()
     {
         ChessPiece targetKing = null;
@@ -553,6 +557,7 @@ public class ChessBoard : MonoBehaviour
         SimulateMoveForSinglePiece(currentlyDragging.GetComponent<ChessPiece>(), ref availableMoves, targetKing);
     }
 
+    //this 
     private static void SimulateMoveForSinglePiece(ChessPiece cp, ref List<Vector2Int> moves, ChessPiece targetKing)
     {
         // Save the current values, to reset after the function call
@@ -628,6 +633,7 @@ public class ChessBoard : MonoBehaviour
 
     }
 
+    //this 
     private static bool CheckForCheckmate()
     {
         var lastMove = moveList[moveList.Count - 1];
