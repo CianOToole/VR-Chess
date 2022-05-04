@@ -45,9 +45,11 @@ public class ChessAI : MonoBehaviour
    
     public static void GetBestMove1()
     {
+        string currentDir = System.IO.Directory.GetCurrentDirectory();
+        
         ProcessStartInfo si = new ProcessStartInfo()
         {
-            FileName = "E:\\VR-Chess\\stockfish_14.1_win_x64_avx2.exe",
+            FileName = currentDir + "\\stockfish_14.1_win_x64_avx2.exe",
             UseShellExecute = false,
             CreateNoWindow = true,
             RedirectStandardError = true,
