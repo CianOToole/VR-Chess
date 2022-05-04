@@ -1221,7 +1221,9 @@ MonoBehaviour:
   teamMaterials:
   - {fileID: 2100000, guid: 5750b56d97b55e543974b73435ac0687, type: 2}
   - {fileID: 2100000, guid: 3da8ac62e3b68454b9d08fcfbb786f52, type: 2}
-  winLossUI: []
+  winLossUI:
+  - {fileID: 1045830067}
+  - {fileID: 2090663174}
 --- !u!4 &148494647
 Transform:
   m_ObjectHideFlags: 0

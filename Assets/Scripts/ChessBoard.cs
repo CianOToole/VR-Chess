@@ -55,13 +55,13 @@ public class ChessBoard : MonoBehaviour
     private void Awake()
     {
         myTurn = false;
+        yOffset = 1f;
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
         setPieceLocation();
         ChessAI.GetBestMove1();
-        
-        
+        Debug.Log(yOffset);
 
     }
 
@@ -109,6 +109,7 @@ public class ChessBoard : MonoBehaviour
     {
         GameObject tileObject = new GameObject(string.Format("X{0} Y{1}", x,y));
         tileObject.transform.parent = transform;
+       
         Mesh mesh = new Mesh();
         tileObject.AddComponent<MeshFilter>().mesh = mesh;
         tileObject.AddComponent<MeshRenderer>().material = tileMaterial;
@@ -361,6 +362,10 @@ public class ChessBoard : MonoBehaviour
 
     public static void setPieceLocation()
     {
+         if (gridSetter != null)
+        {
+            gridSetter.Clear();
+        }
         gridSetter = ChessPieceGridLocation.giveGrid();
         string xString;
         string yString;
