@@ -2487,7 +2487,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936821236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 3.74}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 335950093}
@@ -2496,7 +2496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.638, y: 0}
+  m_AnchoredPosition: {x: 9.95, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &936821238
@@ -4648,6 +4648,10 @@ PrefabInstance:
     - target: {fileID: 89686910822068702, guid: 4d79c65c409e51f4f823bcd35e18e992, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -31.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760433811521524890, guid: 4d79c65c409e51f4f823bcd35e18e992, type: 3}
+      propertyPath: m_text
+      value: "When you are ready\nHit \"Play Game\" \nTo start the game."
       objectReference: {fileID: 0}
     - target: {fileID: 4464903727804417202, guid: 4d79c65c409e51f4f823bcd35e18e992, type: 3}
       propertyPath: m_Name

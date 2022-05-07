@@ -7807,6 +7807,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2059312497}
     m_Modifications:
+    - target: {fileID: 2760433811521524890, guid: 4d79c65c409e51f4f823bcd35e18e992, type: 3}
+      propertyPath: m_text
+      value: "When you are ready\nHit \"Play Game\" \nTo start the game."
+      objectReference: {fileID: 0}
     - target: {fileID: 4464903727804417202, guid: 4d79c65c409e51f4f823bcd35e18e992, type: 3}
       propertyPath: m_Name
       value: Play Game 1

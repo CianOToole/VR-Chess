@@ -56,12 +56,18 @@ public class ChessBoard : MonoBehaviour
     {
         myTurn = false;
         yOffset = 1f;
+        allMoves = "";
+        moveList.Clear();
+        availableMoves.Clear();
+        deadWhites.Clear();
+        deadBlacks.Clear();
         GenerateAllTiles(tileSize, TILE_COUNT_X, TILE_COUNT_Y);
         SpawnAllPieces();
         PositionAllPieces();
         setPieceLocation();
         ChessAI.GetBestMove1();
-        Debug.Log(yOffset);
+        
+        
 
     }
 
