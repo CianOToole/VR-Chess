@@ -57,6 +57,7 @@ public class ChessBoard : MonoBehaviour
         myTurn = false;
         yOffset = 1f;
         allMoves = "";
+        winLoss = 3;
         moveList.Clear();
         availableMoves.Clear();
         deadWhites.Clear();
@@ -66,6 +67,7 @@ public class ChessBoard : MonoBehaviour
         PositionAllPieces();
         setPieceLocation();
         ChessAI.GetBestMove1();
+        Debug.Log(winLoss);
         
         
 
